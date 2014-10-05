@@ -29,9 +29,14 @@ module.exports = function(grunt) {
     	// why bother to refresh your page?
     	// https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en
       html: { files: 'app/index.html' },
+      less: { 
+        files: 'app/src/less/*',
+        tasks: ['less']
+      },
       options: {
         livereload: true
       },
+
     },
 
     // TODO: use require.js already
@@ -41,9 +46,9 @@ module.exports = function(grunt) {
       },
       lib: {
         src: [
-          'node_modules/jquery/dist/jquery.min.js',
-          'node_modules/underscore/underscore-min.js',
-          'node_modules/backbone/backbone-min.js'
+          'node_modules/jquery/dist/jquery.js',
+          'node_modules/underscore/underscore.js',
+          'node_modules/backbone/backbone.js'
         ],
         dest: 'app/assets/scripts/lib.js'
       },
@@ -75,7 +80,7 @@ module.exports = function(grunt) {
         },
         files: {
           // target.css file: source.less file
-          "app/assets/stylsheets/test.css": "app/src/less/test.less"
+          "app/assets/stylesheets/main.css": "app/src/less/main.less"
         }
       }
     },
@@ -90,8 +95,11 @@ module.exports = function(grunt) {
 
 	// Register tasks
   grunt.registerTask('default', [ 'connect', 'watch' ]);
-  grunt.registerTask('compile', [ 'concat:app', 'less'] );
+  grunt.registerTask('compile', [ 'concat:app'] );
   grunt.registerTask('vendors', [ 'concat:lib'] );
-  // grunt.registerTask('less', [ 'less'] );
 
+  grunt.event.on('watch', function() {
+    console.log('watch fire');
+  //   grunt.task.run('less');
+  });
 };

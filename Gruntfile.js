@@ -33,10 +33,13 @@ module.exports = function(grunt) {
         files: 'app/src/less/*',
         tasks: ['less']
       },
+      js: {
+        files: 'app/src/js/*',
+        tasks: ['concat:app']
+      },
       options: {
         livereload: true
       },
-
     },
 
     // TODO: use require.js already
@@ -54,9 +57,9 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
-          'app/src/javascript/alert.js'
+          'app/src/js/alert.js'
         ],
-        dest: 'app/assets/scripts/alert.js'
+        dest: 'app/assets/scripts/app.js'
       }
     },
 

@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         tasks: ['less']
       },
       js: {
-        files: 'app/src/js/*',
+        files: ['app/src/js/*', 'app/src/js/views/*'],
         tasks: ['concat:app']
       },
       options: {
@@ -57,7 +57,8 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
-          'app/src/js/alert.js'
+          'app/src/js/views/step.js',
+          'app/src/js/app.js'
         ],
         dest: 'app/assets/scripts/app.js'
       }

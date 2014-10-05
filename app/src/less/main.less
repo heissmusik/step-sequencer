@@ -1,0 +1,93 @@
+@import 'variables';
+@import 'codepen-buttons';
+
+* {
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	// cursor: pointer !important;
+}
+
+body {
+	font-family: 'PT Serif', serif;
+	background: #3e3e3e;
+	text-align: center;
+}
+
+.wrapper {
+	width: 430px;
+	padding: 15px 30px;
+	background: #fff;
+	margin: 30px auto;
+}
+
+menu {
+	text-align: left;
+	margin: 0;
+	padding: 10px;
+}
+
+.stop, .play {
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.step {
+	width: 50px;
+	text-align: center;
+	display: inline-block;
+}
+.slider {
+	position: relative;
+	display: inline-block;
+	.track {
+		display: inline-block;
+		width: 5px;
+		height: 120px;
+		background: #999;
+	}
+	.fader {
+		position: absolute;
+		left: -7px;
+		bottom: 5px;
+		width: 20px;
+		height: 10px;
+		position: absolute;
+		display: inline-block;
+		background: #333333;
+	}
+}
+
+.square-button {
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: 0 auto;
+  border: 2px solid #f5f5f5;
+  color: #f5f5f5;
+  background: #c3c3c3;
+  box-shadow: 0 0 4px grey;
+  &:hover {
+  	cursor: pointer;
+  	background: #6f6f6f;
+  }
+}
+
+.round-button {
+  display:block;
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align:center;
+  text-decoration:none;
+  background: #c3c3c3;
+  box-shadow: 0 0 3px gray;
+  .active {
+  	background: red;
+  }
+}
+
+	

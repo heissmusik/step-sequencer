@@ -1,4 +1,37 @@
-var StepView = Backbone.View.extend({
+var Clock = Backbone.Model.extend({
+
+	initialize: function() {
+		console.log('Clock::initialize()');
+		this.engine = 0; // for setTimeout
+		this.tempo = 200 // TODO: convert to BPM from milliseconds
+		this.count = 0; // counts number of steps
+	}, 
+
+	step: function() {
+		var self = this;
+		this.count += 1;
+		this.engine = setTimeout(function() {
+			// postMessage('step ' + i); 
+			self.trigger('step', {'count!': self.count} );
+			self.step();
+		}, self.tempo );
+	},
+
+	start: function() {
+		console.log('Clock Start');
+		this.count = 0;
+		this.step();
+	},
+
+	stop: function() {
+		console.log('Clock Stop');
+		if (this.engine !== 0) { 
+			clearTimeout(this.engine); 
+		}
+		this.engine = 0;
+	}
+
+});;var StepView = Backbone.View.extend({
 
   // TODO: use an external template mixin
   // template: _.template( $('#step-template').html() ),
@@ -7,12 +40,16 @@ var StepView = Backbone.View.extend({
   className: 'step',
 
 	events: {
+    'click .start-seq' : 'start',
+    'click .stop-seq' : 'stop',
+
     'click .step-trigger' : 'toggleStep',
     'mousemove .fader'  : 'handleMouseMove'
 	},
 
 	initialize: function() {
-
+    this.model = new Clock();
+    this.listenTo(this.model, 'step', this.stepWasTriggered);
 	},
 
 	render: function() {
@@ -23,6 +60,19 @@ var StepView = Backbone.View.extend({
 		}));
   	return this;
 	},
+
+  stepWasTriggered: function(e) {
+    console.log ('step triggered', e);
+  },
+
+  start: function() {
+    console.log('starting...');
+    this.model.start();
+  },
+
+  stop: function() {
+    this.model.stop();
+  },
 
   toggleStep: function() {
     console.log('toggleStep');

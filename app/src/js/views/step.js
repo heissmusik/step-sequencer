@@ -23,19 +23,6 @@ var StepView = Backbone.View.extend({
   	return this;
 	},
 
-  stepWasTriggered: function(e) {
-    console.log ('step triggered', e);
-  },
-
-  start: function() {
-    console.log('starting...');
-    this.model.start();
-  },
-
-  stop: function() {
-    this.model.stop();
-  },
-
   toggleStep: function() {
     console.log('toggleStep');
   },

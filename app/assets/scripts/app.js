@@ -100,7 +100,7 @@ var Clock = Backbone.Model.extend({
   className: 'step',
 
 	events: {
-    'click .step-trigger' : 'toggleStep',
+    'click .trigger' : 'toggleStep',
     'mousemove .fader'  : 'handleMouseMove'
 	},
 
@@ -120,8 +120,6 @@ var Clock = Backbone.Model.extend({
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);
     $ledEl.css("background", "red");
-    // $('.led_'+this.model.id).removeClass("flash");
-    // $el.css("background", "red");
     setTimeout(function(){
       $ledEl.css("background", '#999999');
     }, 200);
@@ -129,10 +127,18 @@ var Clock = Backbone.Model.extend({
 
   toggleStep: function() {
     console.log('toggleStep');
+    var $triggerEl = $('.trigger_'+this.model.id);
+    $triggerEl.toggleClass('step-active');
+
   },
 
-  handleMouseMove: function() {
-    // console.log('handleMouseMove');
+  isActive: function() {
+    var $triggerEl = $('.trigger_'+this.model.id);
+    if ($triggerEl.hasClass('step-active')) {
+      return true
+    } else {
+      return false;
+    }
   }
 
 });;var SequenceView = Backbone.View.extend({
@@ -219,7 +225,11 @@ var Clock = Backbone.Model.extend({
     var stepFreq = currentStep.get('frequency');
     // console.log ( 'freq of step', pattern.sequence[stepper] );
     console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
-    this.model.createAndTriggerOscillator(stepFreq, .2);
+    
+    if (this._stepViews[this.stepCount-1].isActive() === true) {
+    	this.model.createAndTriggerOscillator(stepFreq, .2);
+  	}
+    
     this.flashLed();
     this.stepCount++;
   },

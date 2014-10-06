@@ -7,7 +7,7 @@ var StepView = Backbone.View.extend({
   className: 'step',
 
 	events: {
-    'click .step-trigger' : 'toggleStep',
+    'click .trigger' : 'toggleStep',
     'mousemove .fader'  : 'handleMouseMove'
 	},
 
@@ -27,8 +27,6 @@ var StepView = Backbone.View.extend({
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);
     $ledEl.css("background", "red");
-    // $('.led_'+this.model.id).removeClass("flash");
-    // $el.css("background", "red");
     setTimeout(function(){
       $ledEl.css("background", '#999999');
     }, 200);
@@ -36,10 +34,18 @@ var StepView = Backbone.View.extend({
 
   toggleStep: function() {
     console.log('toggleStep');
+    var $triggerEl = $('.trigger_'+this.model.id);
+    $triggerEl.toggleClass('step-active');
+
   },
 
-  handleMouseMove: function() {
-    // console.log('handleMouseMove');
+  isActive: function() {
+    var $triggerEl = $('.trigger_'+this.model.id);
+    if ($triggerEl.hasClass('step-active')) {
+      return true
+    } else {
+      return false;
+    }
   }
 
 });

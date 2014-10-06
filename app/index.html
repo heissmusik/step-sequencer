@@ -19,8 +19,16 @@
 
 	<body>
 
+		<div class="wrapper">
+			<header>
+				<h1>Web Audio Step Sequencer</h1>
+			</header>
+			<div id="seq"></div>
+		</div>
+
+		<!-- underscore templates TODO: put in external files via mixin -->
 		<script type="text/template" id="step-template">
-			<span class="trigger square-button"></span>
+			<span class="trigger_<%=id%> trigger step-active square-button"></span>
 			<div class="slider">
 			  <span class="track"></span>
 			  <span class="fader"></span>
@@ -38,115 +46,6 @@
 			</section>
 		</script>
 
-		<div class="wrapper">
-			<header>
-				<h1>Web Audio Step Sequencer</h1>
-			</header>
-			<div id="seq"></div>
-
-
-
-			<!-- this element can be removed after refactor -->
-<!-- 			<section class="trigger">
-				<div class="step">
-					<a href="#" id="step1-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step2-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step3-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step4-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step5-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step6-trigger" class="square-button"></a>
-				</div>			
-				<div class="step">
-					<a href="#" id="step7-trigger" class="square-button"></a>
-				</div>
-				<div class="step">
-					<a href="#" id="step8-trigger" class="square-button"></a>
-				</div>
-			</section> -->
-			<!-- this element can be removed after refactor -->
-<!-- 			<section id="pitch">
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			      <span class="fader" id="step1_pitch"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-				<div class="step">
-					<div class="slider">
-			      <span class="track"></span>
-			    </div>
-	     	</div>
-			</section> -->
-			<!-- this element can be removed after refactor -->
-<!-- 			<section class="leds">
-				<div class="step">
-					<span id="LED_0" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_1" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_2" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_3" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_4" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_5" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_6" class="round-button"></span>
-				</div>
-				<div class="step">
-					<span id="LED_7" class="round-button"></span>
-				</div>
-			</section> -->
-
-
-		</div>
 	</body>
 
 </html>

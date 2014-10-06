@@ -9,20 +9,20 @@
 
 body {
 	font-family: 'PT Serif', serif;
-	background: #3e3e3e;
+	background: @light-grey;
 	text-align: center;
 }
 
 .wrapper {
-
+	background: @ivory;
 	width: 500px;
 	padding: 15px 30px;
-	background: #fff;
 	margin: 30px auto;
 	border-radius: 10px;
 
 	#seq {
 		width: 480px;
+		padding: 10px;
 
 		.step {
 
@@ -32,6 +32,10 @@ body {
 
 			.trigger {
 				margin-bottom: 15px;
+
+			}
+			.step-active {
+				background: @orange;
 			}
 
 			.slider {
@@ -59,6 +63,9 @@ body {
 			}
 			.led {
 				margin-top: 15px;
+			}
+			.lit {
+				background: @red;
 			}
 		}
 		.controls {

@@ -82,7 +82,11 @@ var SequenceView = Backbone.View.extend({
     var stepFreq = currentStep.get('frequency');
     // console.log ( 'freq of step', pattern.sequence[stepper] );
     console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
-    this.model.createAndTriggerOscillator(stepFreq, .2);
+    
+    if (this._stepViews[this.stepCount-1].isActive() === true) {
+    	this.model.createAndTriggerOscillator(stepFreq, .2);
+  	}
+    
     this.flashLed();
     this.stepCount++;
   },

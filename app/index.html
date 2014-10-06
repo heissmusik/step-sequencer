@@ -20,14 +20,22 @@
 	<body>
 
 		<script type="text/template" id="step-template">
-			<span class="step-trigger square-button"></span>
+			<span class="trigger square-button"></span>
 			<div class="slider">
 			  <span class="track"></span>
 			  <span class="fader"></span>
 			</div>
-			<span class="led_0 round-button"></span>
-			<hr>
-			<a href="#" class="stop-seq">stop</a> | <a href="#" class="start-seq">start</a>
+			<span class="led_<%=id%> led round-button"></span>
+		</script>
+
+		<script type="text/template" id="sequence-template">
+			<div id='step-views'></div>
+			<section class="controls">
+				<menu class="small">
+					<button id="stop" class="stop"></button>
+					<button id="start" class="play"></button>
+				</menu>
+			</section>
 		</script>
 
 		<div class="wrapper">
@@ -35,12 +43,7 @@
 				<h1>Web Audio Step Sequencer</h1>
 			</header>
 			<div id="seq"></div>
-			<section class="controls">
-				<menu class="small">
-					<button id="stop" class="stop"></button>
-					<button id="start" class="play"></button>
-				</menu>
-			</section>
+
 
 
 			<!-- this element can be removed after refactor -->

@@ -7,16 +7,11 @@ var StepView = Backbone.View.extend({
   className: 'step',
 
 	events: {
-    'click .start-seq' : 'start',
-    'click .stop-seq' : 'stop',
-
     'click .step-trigger' : 'toggleStep',
     'mousemove .fader'  : 'handleMouseMove'
 	},
 
 	initialize: function() {
-    this.model = new Clock();
-    this.listenTo(this.model, 'step', this.stepWasTriggered);
 	},
 
 	render: function() {

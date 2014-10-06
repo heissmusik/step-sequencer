@@ -26,9 +26,9 @@ var StepView = Backbone.View.extend({
 
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);
-    $ledEl.css("background", "red");
+    $ledEl.addClass('lit');
     setTimeout(function(){
-      $ledEl.css("background", '#999999');
+      $ledEl.removeClass('lit');
     }, 200);
   },
 

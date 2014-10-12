@@ -51,7 +51,8 @@ module.exports = function(grunt) {
         src: [
           'node_modules/jquery/dist/jquery.js',
           'node_modules/underscore/underscore.js',
-          'node_modules/backbone/backbone.js'
+          'node_modules/backbone/backbone.js',
+          'node_modules/jquery-ui/jquery-ui.js'
         ],
         dest: 'app/assets/scripts/lib.js'
       },

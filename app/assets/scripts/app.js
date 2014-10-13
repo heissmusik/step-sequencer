@@ -103,8 +103,6 @@ var Clock = Backbone.Model.extend({
 
 	template: _.template('<span id="fader_<%=id%>" class="fader"></span>'),
 	
-	events: { 'drop:dropview': 'dropviewDropHandler'},
-
 	initialize: function () {
 		console.log('FaderView::initialize()');
 		// this.$el.draggable();
@@ -132,7 +130,6 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function(options) {
     // console.log('StepView:initialize()');
-    // this.fader = new FaderView({ model: this.model });
   },
 
 	render: function() {
@@ -140,7 +137,6 @@ var Clock = Backbone.Model.extend({
 		this.$el.html(this.template({
       id: this.model.id
 		}));
-    // this.$('.fader-view').html( this.fader.render().$el );
     this.initSlider();
 
   	return this;

@@ -2,8 +2,6 @@ var FaderView = Backbone.View.extend({
 
 	template: _.template('<span id="fader_<%=id%>" class="fader"></span>'),
 	
-	events: { 'drop:dropview': 'dropviewDropHandler'},
-
 	initialize: function () {
 		console.log('FaderView::initialize()');
 		// this.$el.draggable();

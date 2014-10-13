@@ -3,6 +3,9 @@ Draggable
 alternative to jQuery UI’s draggable
 based on comments from: http://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
 usage example: $('.post-thumbnail, article header').draggable();
+
+Modified from: https://gist.github.com/Arty2/11199162
+but this looks good too: http://jsbin.com/vuhasika/1/edit
 --------------------------------------------------------------*/
 (function($) {
   if (!jQuery().draggable) {
@@ -25,13 +28,15 @@ usage example: $('.post-thumbnail, article header').draggable();
           var faderEl = $(e.target).parents('.slider');
 
           if (typeof $(faderEl).offset() !== 'undefined') {
-              
-            var faderTopPos = $(faderEl).offset().top; // should be 1/2 the fader's height
+
+            var relativeY = $($dragged).offset().top - $(faderEl).offset().top;
+            console.log('relativeY', relativeY)
+
+            var faderTopPos = $(faderEl).offset().top; // should be + 1/2 the fader's height
             console.log('faderTopPos', faderTopPos);
             
             var faderBottomPos = $(faderEl).offset().top + $(faderEl).height();
             console.log('faderBottomPos', faderBottomPos);
-            console.log ('pageY', e.clientY );
             
             var pageY = e.pageY;
 

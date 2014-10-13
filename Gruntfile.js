@@ -51,8 +51,8 @@ module.exports = function(grunt) {
         src: [
           'node_modules/jquery/dist/jquery.js',
           'node_modules/underscore/underscore.js',
-          'node_modules/backbone/backbone.js',
-          'node_modules/jquery-ui/jquery-ui.js'
+          'node_modules/backbone/backbone.js'
+          // 'node_modules/jquery-ui/jquery-ui.js'
         ],
         dest: 'app/assets/scripts/lib.js'
       },
@@ -62,6 +62,7 @@ module.exports = function(grunt) {
           'app/src/js/models/sequence.js',
           'app/src/js/models/step.js',
           'app/src/js/collections/steps.js',
+          'app/src/js/views/fader.js',
           'app/src/js/views/step.js',
           'app/src/js/views/sequence.js',
           'app/src/js/app.js'

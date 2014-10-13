@@ -46,7 +46,6 @@ var StepView = Backbone.View.extend({
   },
 
   setPitch: function(delta) {
-    console.log('change pitch by', delta);
     this.model.set({"delta": delta});
   },
 

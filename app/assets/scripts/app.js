@@ -163,7 +163,6 @@ var Clock = Backbone.Model.extend({
   },
 
   setPitch: function(delta) {
-    console.log('change pitch by', delta);
     this.model.set({"delta": delta});
   },
 
@@ -206,19 +205,21 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function() {
 		var self= this;
+    this.setNoteMapper();
+    console.log (this.noteMapper[12]);
+
 		this.stepCount = 1;
     this.clock = new Clock();
     this.listenTo(this.clock, 'step', this.stepWasTriggered);
-
     this.stepCollection = new StepCollection();
     this.stepCollection.fetch().done( function(){
     	self.createAndRenderStepViews();
     });
 	  this.model = new Sequence({
-	    "tempo": 100,
-	    "stepCollection": this.stepCollection
+	    'tempo': 100,
+      'rootPitch': 'A4',
+	    'stepCollection': this.stepCollection
 	  });
-	  
 	},
 
 	render: function() {
@@ -250,8 +251,8 @@ var Clock = Backbone.Model.extend({
 	},
 
   stepWasTriggered: function (e) {
-    console.log ('step triggered', e);
-    this.playNote();
+    // this.playNote();
+    this.triggerStep();
   },
 
   start: function() {
@@ -264,46 +265,80 @@ var Clock = Backbone.Model.extend({
     this.clock.stop();
   },
 
-  playNote: function() {
-  	var self = this;
+  triggerStep: function() {
+    var self = this;
     if (this.stepCount-1 == this.stepCollection.length) {
       this.stepCount = 1;
     }
-    // console.log('this.stepCount', this.stepCount);
-    var currentStep = this.stepCollection.get(self.stepCount );
-    // console.log('currentStep', currentStep);
-    var stepFreq = currentStep.get('frequency');
-    // console.log ( 'freq of step', pattern.sequence[stepper] );
-    console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
+    // var currentStep = this.stepCollection.get(self.stepCount );
+    // var stepFreq = currentStep.get('frequency');
+    // console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
 
-    var stepDelta = currentStep.get('delta');
-    console.log('stepDelta', stepDelta);
+    // console.log ('STEP', this.stepCount, 'of', this.stepCollection.length);
+
+    var currentStepView = this._stepViews[this.stepCount-1];
+    if (currentStepView.isActive() === true) {
+      // console.log ( 'DELTA', currentStepView.model.get('delta') );
+
+      // TODO: would be cool if by frequency...
+      // var frequency =  
+      // var HALF_STEP_DELTA = Math.pow(2, 1/12);
+      // if (stepDelta > 0) {
+      //   freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
+      //   console.log('freq', freq);
+      // } else if (stepDelta < 0) {
+      // }
+
+      var pitchDelta = currentStepView.model.get('delta');
+      var currentNote = this.noteMapper[12 + pitchDelta];
+      console.log (currentNote.freq );
+
+      this.model.createAndTriggerOscillator(currentNote.freq, .2);
+    }
+    this.flashLed();
+    this.stepCount++;
+  },
+
+  playNote: function() {
+  	// var self = this;
+    // if (this.stepCount-1 == this.stepCollection.length) {
+    //   this.stepCount = 1;
+    // }
+    // console.log('this.stepCount', this.stepCount);
+    // var currentStep = this.stepCollection.get(self.stepCount );
+    // console.log('currentStep', currentStep);
+    // var stepFreq = currentStep.get('frequency');
+    // console.log ( 'freq of step', pattern.sequence[stepper] );
+    // console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
+
+    // var stepDelta = currentStep.get('delta');
+    // console.log('stepDelta', stepDelta);
 
     // Since an octave has a frequency ratio of 2, 
     // a half-step has a frequency ratio of 2^(1/12), or approximately 1.0595. 
     // For example, if the note A has a frequency of 440 Hz, 
     // then one half-step up (A# or Bb) is 440*1.0595 = 466.2 Hz. 
     // One half-step down (G# or Ab) is 440/1.0595 = 415.3 Hz.
-    var HALF_STEP_DELTA = Math.pow(2, 1/12);
+    // var HALF_STEP_DELTA = Math.pow(2, 1/12);
 
-    if (stepDelta > 0) {
-      freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
-      console.log('freq', freq);
+    // if (stepDelta > 0) {
+    //   freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
+    //   console.log('freq', freq);
 
-    } else if (stepDelta < 0) {
+    // } else if (stepDelta < 0) {
 
-    }
+    // }
 
 
 
 
     
-    if (this._stepViews[this.stepCount-1].isActive() === true) {
-    	this.model.createAndTriggerOscillator(stepFreq, .2);
-  	}
+   //  if (this._stepViews[this.stepCount-1].isActive() === true) {
+   //  	this.model.createAndTriggerOscillator(stepFreq, .2);
+  	// }
     
-    this.flashLed();
-    this.stepCount++;
+   //  this.flashLed();
+   //  this.stepCount++;
   },
 
   flashLed: function() {
@@ -311,35 +346,33 @@ var Clock = Backbone.Model.extend({
   },
 
   setNoteMapper: function () {
-    this.noteMapper = {
-      /*
-      A3  220.00  
-      A#3/Bb3  233.08  
-      B3  246.94  
-      C4  261.63  
-      C#4/Db4  277.18  
-      D4  293.66  
-      D#4/Eb4  311.13  
-      E4  329.63  
-      F4  349.23 
-      F#4/Gb4  369.99 
-      G4  392.00 
-      G#4/Ab4  415.30 
-      A4  440.00 
-      A#4/Bb4  466.16 
-      B4  493.88 
-      C5  523.25 
-      C#5/Db5  554.37 
-      D5  587.33 
-      D#5/Eb5  622.25 
-      E5  659.25 
-      F5  698.46 
-      F#5/Gb5  739.99 
-      G5  783.99 
-      G#5/Ab5  830.61 
-      A5  880.00 
-      */
-    }
+    this.noteMapper = [
+      {'name' : 'A3',  'freq' : 220.00},
+      {'name' : 'A#3', 'freq' : 233.08},
+      {'name' : 'B3',  'freq' : 246.94},
+      {'name' : 'C4',  'freq' : 261.63},
+      {'name' : 'C#4', 'freq' : 277.18},
+      {'name' : 'D4',  'freq' : 293.66},
+      {'name' : 'D#4', 'freq' : 311.13},
+      {'name' : 'E4',  'freq' : 329.63},
+      {'name' : 'F4',  'freq' : 349.23},
+      {'name' : 'F#4', 'freq' : 369.99},
+      {'name' : 'G4',  'freq' : 392.00},
+      {'name' : 'G#4', 'freq' : 415.30},
+      {'name' : 'A4',  'freq' : 440.00},
+      {'name' : 'A#4', 'freq' : 466.16},
+      {'name' : 'B4',  'freq' : 493.88}, 
+      {'name' : 'C5' , 'freq' : 523.25},
+      {'name' : 'C#5', 'freq' : 554.37},
+      {'name' : 'D5',  'freq' : 587.33},
+      {'name' : 'D#5', 'freq' : 622.25}, 
+      {'name' : 'E5' , 'freq' : 659.25},
+      {'name' : 'F5' , 'freq' : 698.46},
+      {'name' : 'F#5', 'freq' : 739.99}, 
+      {'name' : 'G5' , 'freq' : 783.99},
+      {'name' : 'G#5', 'freq' : 830.61}, 
+      {'name' : 'A5',  'freq' : 880.00}
+    ]
   }
 
 

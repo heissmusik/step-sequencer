@@ -23,7 +23,8 @@ var Sequence = Backbone.Model.extend({
     vco.connect(this.context.destination);
 
     var vca = this.context.createGain();
-    var volume = Math.random();
+    // var volume = Math.random();
+    var volume = .8;
     vca.gain.value = volume;
     vco.connect(vca);
     vca.connect(this.context.destination);

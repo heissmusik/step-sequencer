@@ -22,6 +22,13 @@ var StepView = Backbone.View.extend({
       id: this.model.id
 		}));
     // this.$('.fader-view').html( this.fader.render().$el );
+    this.initSlider();
+
+  	return this;
+	},
+
+  initSlider: function() {
+    var self = this;
     this.$('.slider').noUiSlider({
       start: [12],
       direction: "rtl",
@@ -36,11 +43,14 @@ var StepView = Backbone.View.extend({
         decimals: 0
       })
     }).on('slide', function(e){
-      console.log('slide', $(this).val()-12 )
+      self.setPitch($(this).val()-12);
     });
+  },
 
-  	return this;
-	},
+  setPitch: function(delta) {
+    console.log('change pitch by', delta);
+    this.model.set({"delta": delta});
+  },
 
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);

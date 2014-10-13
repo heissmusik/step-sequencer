@@ -2,6 +2,7 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function() {
 		// console.log('Clock::initialize()');
+		this.isRunning = false;
 		this.engine = 0; // setTimeout id
 		this.tempo = 200 // TODO: convert to BPM from milliseconds
 		this.count = 0; // counts number of steps
@@ -18,12 +19,18 @@ var Clock = Backbone.Model.extend({
 
 	start: function() {
 		// console.log('Clock Start');
-		this.count = 0;
-		this.step();
+		if (this.isRunning == false) {
+			this.isRunning = true;
+			this.count = 0;
+			this.step();
+		} else {
+			return
+		}
 	},
 
 	stop: function() {
 		// console.log('Clock Stop');
+		this.isRunning = false;
 		if (this.engine !== 0) { 
 			clearTimeout(this.engine); 
 		}
@@ -55,7 +62,8 @@ var Clock = Backbone.Model.extend({
     vco.connect(this.context.destination);
 
     var vca = this.context.createGain();
-    var volume = Math.random();
+    // var volume = Math.random();
+    var volume = .8;
     vca.gain.value = volume;
     vco.connect(vca);
     vca.connect(this.context.destination);
@@ -133,6 +141,13 @@ var Clock = Backbone.Model.extend({
       id: this.model.id
 		}));
     // this.$('.fader-view').html( this.fader.render().$el );
+    this.initSlider();
+
+  	return this;
+	},
+
+  initSlider: function() {
+    var self = this;
     this.$('.slider').noUiSlider({
       start: [12],
       direction: "rtl",
@@ -147,11 +162,14 @@ var Clock = Backbone.Model.extend({
         decimals: 0
       })
     }).on('slide', function(e){
-      console.log('slide', $(this).val()-12 )
+      self.setPitch($(this).val()-12);
     });
+  },
 
-  	return this;
-	},
+  setPitch: function(delta) {
+    console.log('change pitch by', delta);
+    this.model.set({"delta": delta});
+  },
 
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);
@@ -261,6 +279,28 @@ var Clock = Backbone.Model.extend({
     var stepFreq = currentStep.get('frequency');
     // console.log ( 'freq of step', pattern.sequence[stepper] );
     console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
+
+    var stepDelta = currentStep.get('delta');
+    console.log('stepDelta', stepDelta);
+
+    // Since an octave has a frequency ratio of 2, 
+    // a half-step has a frequency ratio of 2^(1/12), or approximately 1.0595. 
+    // For example, if the note A has a frequency of 440 Hz, 
+    // then one half-step up (A# or Bb) is 440*1.0595 = 466.2 Hz. 
+    // One half-step down (G# or Ab) is 440/1.0595 = 415.3 Hz.
+    var HALF_STEP_DELTA = Math.pow(2, 1/12);
+
+    if (stepDelta > 0) {
+      freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
+      console.log('freq', freq);
+
+    } else if (stepDelta < 0) {
+
+    }
+
+
+
+
     
     if (this._stepViews[this.stepCount-1].isActive() === true) {
     	this.model.createAndTriggerOscillator(stepFreq, .2);
@@ -272,7 +312,40 @@ var Clock = Backbone.Model.extend({
 
   flashLed: function() {
   	this._stepViews[this.stepCount-1].flashLed();
+  },
+
+  setNoteMapper: function () {
+    this.noteMapper = {
+      /*
+      A3  220.00  
+      A#3/Bb3  233.08  
+      B3  246.94  
+      C4  261.63  
+      C#4/Db4  277.18  
+      D4  293.66  
+      D#4/Eb4  311.13  
+      E4  329.63  
+      F4  349.23 
+      F#4/Gb4  369.99 
+      G4  392.00 
+      G#4/Ab4  415.30 
+      A4  440.00 
+      A#4/Bb4  466.16 
+      B4  493.88 
+      C5  523.25 
+      C#5/Db5  554.37 
+      D5  587.33 
+      D#5/Eb5  622.25 
+      E5  659.25 
+      F5  698.46 
+      F#5/Gb5  739.99 
+      G5  783.99 
+      G#5/Ab5  830.61 
+      A5  880.00 
+      */
+    }
   }
+
 
 });;$( document ).ready(function() {
 

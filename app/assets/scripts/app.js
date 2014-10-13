@@ -99,16 +99,10 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function () {
 		console.log('FaderView::initialize()');
-		
-		this.$el.draggable();
-
+		// this.$el.draggable();
 	},
 
-	dropviewDropHandler: function() { console.log('drag'); },
-
   render: function() {
-  	// $('.fader-view').append(stepView.render().$el);
-  	// this.template = _.template( $('#step-template').html() );
 		this.$el.html(this.template({
       id: this.model.id
 		}));
@@ -130,7 +124,7 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function(options) {
     // console.log('StepView:initialize()');
-    this.fader = new FaderView({ model: this.model });
+    // this.fader = new FaderView({ model: this.model });
   },
 
 	render: function() {
@@ -138,7 +132,24 @@ var Clock = Backbone.Model.extend({
 		this.$el.html(this.template({
       id: this.model.id
 		}));
-    this.$('.fader-view').html( this.fader.render().$el );
+    // this.$('.fader-view').html( this.fader.render().$el );
+    this.$('.slider').noUiSlider({
+      start: [12],
+      direction: "rtl",
+      step: 1,
+      connect: false,
+      orientation: "vertical",
+      range: {
+        'min': [0],
+        'max': [24]
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    }).on('slide', function(e){
+      console.log('slide', $(this).val()-12 )
+    });
+
   	return this;
 	},
 

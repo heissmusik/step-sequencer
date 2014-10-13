@@ -6,16 +6,10 @@ var FaderView = Backbone.View.extend({
 
 	initialize: function () {
 		console.log('FaderView::initialize()');
-		
-		this.$el.draggable();
-
+		// this.$el.draggable();
 	},
 
-	dropviewDropHandler: function() { console.log('drag'); },
-
   render: function() {
-  	// $('.fader-view').append(stepView.render().$el);
-  	// this.template = _.template( $('#step-template').html() );
 		this.$el.html(this.template({
       id: this.model.id
 		}));

@@ -13,7 +13,7 @@ var StepView = Backbone.View.extend({
 
 	initialize: function(options) {
     // console.log('StepView:initialize()');
-
+    this.fader = new FaderView({ model: this.model });
   },
 
 	render: function() {
@@ -21,6 +21,7 @@ var StepView = Backbone.View.extend({
 		this.$el.html(this.template({
       id: this.model.id
 		}));
+    this.$('.fader-view').html( this.fader.render().$el );
   	return this;
 	},
 

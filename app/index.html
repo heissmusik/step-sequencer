@@ -9,16 +9,14 @@
 		<link rel="stylesheet" type="text/css" href = "assets/stylesheets/main.css" />
 
 		<script type="text/javascript" src="assets/scripts/lib.js"></script>
+
+		<link href="assets/noUiSlider.7.0.9/jquery.nouislider.min.css" rel="stylesheet">
+		<script src="assets/noUiSlider.7.0.9/jquery.nouislider.all.min.js"></script>
+
 		<script type="text/javascript" src="assets/scripts/app.js"></script>
-
-		<!-- TODO: finish refactor and remove these -->
-		<!-- <script type="text/javascript" src="assets/scripts/ui-controls.js"></script> -->
-		<!-- <script type="text/javascript" src="assets/scripts/main.js"></script> -->
-
 	</head>
 
 	<body>
-
 		<div class="wrapper">
 			<header>
 				<h1>Web Audio Step Sequencer</h1>
@@ -29,10 +27,7 @@
 		<!-- underscore templates TODO: put in external files via mixin -->
 		<script type="text/template" id="step-template">
 			<span class="trigger_<%=id%> trigger step-active square-button"></span>
-			<div class="slider">
-			  <span class="track"></span>
-			  <span class="fader"></span>
-			</div>
+			<div class="slider"></div>
 			<span class="led_<%=id%> led round-button"></span>
 		</script>
 

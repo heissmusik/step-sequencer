@@ -1,12 +1,12 @@
 {
 	"steps" : [
-		{"id": 1, "frequency": 220},
-		{"id": 2, "frequency": 440},
-		{"id": 3, "frequency": 293},
-		{"id": 4, "frequency": 246},
-		{"id": 5, "frequency": 261},
-		{"id": 6, "frequency": 293},
-		{"id": 7, "frequency": 246},
-		{"id": 8, "frequency": 261}
+		{"id": 1, "frequency": 440, "delta": 0},
+		{"id": 2, "frequency": 440, "delta": 0},
+		{"id": 3, "frequency": 440, "delta": 0},
+		{"id": 4, "frequency": 440, "delta": 0},
+		{"id": 5, "frequency": 440, "delta": 0},
+		{"id": 6, "frequency": 440, "delta": 0},
+		{"id": 7, "frequency": 440, "delta": 0},
+		{"id": 8, "frequency": 440, "delta": 0}
 	]
 }

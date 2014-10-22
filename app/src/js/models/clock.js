@@ -2,6 +2,7 @@ var Clock = Backbone.Model.extend({
 
 	initialize: function() {
 		// console.log('Clock::initialize()');
+		this.isRunning = false;
 		this.engine = 0; // setTimeout id
 		this.tempo = 200 // TODO: convert to BPM from milliseconds
 		this.count = 0; // counts number of steps
@@ -18,12 +19,18 @@ var Clock = Backbone.Model.extend({
 
 	start: function() {
 		// console.log('Clock Start');
-		this.count = 0;
-		this.step();
+		if (this.isRunning == false) {
+			this.isRunning = true;
+			this.count = 0;
+			this.step();
+		} else {
+			return
+		}
 	},
 
 	stop: function() {
 		// console.log('Clock Stop');
+		this.isRunning = false;
 		if (this.engine !== 0) { 
 			clearTimeout(this.engine); 
 		}

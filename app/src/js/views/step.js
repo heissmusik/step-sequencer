@@ -13,7 +13,6 @@ var StepView = Backbone.View.extend({
 
 	initialize: function(options) {
     // console.log('StepView:initialize()');
-
   },
 
 	render: function() {
@@ -21,8 +20,34 @@ var StepView = Backbone.View.extend({
 		this.$el.html(this.template({
       id: this.model.id
 		}));
+    this.initSlider();
+
   	return this;
 	},
+
+  initSlider: function() {
+    var self = this;
+    this.$('.slider').noUiSlider({
+      start: [12],
+      direction: "rtl",
+      step: 1,
+      connect: false,
+      orientation: "vertical",
+      range: {
+        'min': [0],
+        'max': [24]
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    }).on('slide', function(e){
+      self.setPitch($(this).val()-12);
+    });
+  },
+
+  setPitch: function(delta) {
+    this.model.set({"delta": delta});
+  },
 
   flashLed: function() {
     var $ledEl = $('.led_'+this.model.id);

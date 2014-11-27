@@ -1,9 +1,5 @@
 var SequenceView = Backbone.View.extend({
 
-  // TODO: use an external template mixin
-  // template: _.template( $('#sequence-template').html() ),
-	// template: _.template( '<span><%= myVar %></span>' ),
-
   className: 'sequence',
 
 	events: {
@@ -59,7 +55,6 @@ var SequenceView = Backbone.View.extend({
 	},
 
   stepWasTriggered: function (e) {
-    // this.playNote();
     this.triggerStep();
   },
 
@@ -78,75 +73,22 @@ var SequenceView = Backbone.View.extend({
     if (this.stepCount-1 == this.stepCollection.length) {
       this.stepCount = 1;
     }
-    // var currentStep = this.stepCollection.get(self.stepCount );
-    // var stepFreq = currentStep.get('frequency');
-    // console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
-
-    // console.log ('STEP', this.stepCount, 'of', this.stepCollection.length);
 
     var currentStepView = this._stepViews[this.stepCount-1];
     if (currentStepView.isActive() === true) {
-      // console.log ( 'DELTA', currentStepView.model.get('delta') );
+      console.log ( 'DELTA', currentStepView.model.get('delta') );
 
       // TODO: would be cool if by frequency...
-      // var frequency =  
       // var HALF_STEP_DELTA = Math.pow(2, 1/12);
-      // if (stepDelta > 0) {
-      //   freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
-      //   console.log('freq', freq);
-      // } else if (stepDelta < 0) {
-      // }
 
       var pitchDelta = currentStepView.model.get('delta');
-      var currentNote = this.noteMapper[12 + pitchDelta];
+      var currentNote = this.noteMapper[pitchDelta];
       console.log (currentNote.freq );
 
       this.model.createAndTriggerOscillator(currentNote.freq, .2);
     }
     this.flashLed();
     this.stepCount++;
-  },
-
-  playNote: function() {
-  	// var self = this;
-    // if (this.stepCount-1 == this.stepCollection.length) {
-    //   this.stepCount = 1;
-    // }
-    // console.log('this.stepCount', this.stepCount);
-    // var currentStep = this.stepCollection.get(self.stepCount );
-    // console.log('currentStep', currentStep);
-    // var stepFreq = currentStep.get('frequency');
-    // console.log ( 'freq of step', pattern.sequence[stepper] );
-    // console.log ('step', this.stepCount, 'of', this.stepCollection.length, 'at', stepFreq, 'Hz');
-
-    // var stepDelta = currentStep.get('delta');
-    // console.log('stepDelta', stepDelta);
-
-    // Since an octave has a frequency ratio of 2, 
-    // a half-step has a frequency ratio of 2^(1/12), or approximately 1.0595. 
-    // For example, if the note A has a frequency of 440 Hz, 
-    // then one half-step up (A# or Bb) is 440*1.0595 = 466.2 Hz. 
-    // One half-step down (G# or Ab) is 440/1.0595 = 415.3 Hz.
-    // var HALF_STEP_DELTA = Math.pow(2, 1/12);
-
-    // if (stepDelta > 0) {
-    //   freq = stepFreq + (stepDelta * HALF_STEP_DELTA);
-    //   console.log('freq', freq);
-
-    // } else if (stepDelta < 0) {
-
-    // }
-
-
-
-
-    
-   //  if (this._stepViews[this.stepCount-1].isActive() === true) {
-   //  	this.model.createAndTriggerOscillator(stepFreq, .2);
-  	// }
-    
-   //  this.flashLed();
-   //  this.stepCount++;
   },
 
   flashLed: function() {

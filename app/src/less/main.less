@@ -9,17 +9,34 @@
 
 body {
 	font-family: 'PT Serif', serif;
-	background: @light-grey;
+	background: @ivory;
 	text-align: center;
 }
 
 .wrapper {
-	background: @ivory;
+	background: @dark-grey;
 	width: 500px;
 	padding: 15px 30px;
 	margin: 30px auto;
-	border-radius: 10px;
-
+	// border-radius: 10px;
+	border-right: 20px solid @brown;
+	border-left: 20px solid @brown;
+	header {
+		text-align: left;
+		border-bottom: 1px solid @gold;
+		padding: 10px;
+		margin-bottom: 20px;
+		span {
+			color: @gold;
+			font-size: 20px;
+			position: relative;
+			bottom: 20px;
+		}
+		img {
+			max-width: 50px;
+			margin-right: 20px;
+		}
+	}
 	#seq {
 		width: 480px;
 		padding: 10px;
@@ -36,7 +53,7 @@ body {
 
 			}
 			.step-active {
-				background: @orange;
+				background: #000000;
 			}
 
 			.slider {
@@ -101,7 +118,7 @@ menu {
   box-shadow: 0 0 4px grey;
   &:hover {
   	cursor: pointer;
-  	background: #6f6f6f;
+  	// background: #6f6f6f;
   }
 }
 

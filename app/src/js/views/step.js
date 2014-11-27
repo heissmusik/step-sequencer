@@ -1,18 +1,13 @@
 var StepView = Backbone.View.extend({
 
-  // TODO: use an external template mixin
-  // template: _.template( $('#step-template').html() ),
-	// template: _.template( '<span><%= myVar %></span>' ),
-
   className: 'step',
 
 	events: {
-    'click .trigger' : 'toggleStep',
-    'mousemove .fader'  : 'handleMouseMove'
+    'click .trigger' : 'toggleStep'
 	},
 
-	initialize: function(options) {
-    // console.log('StepView:initialize()');
+  initialize: function() {
+    console.log(this.model);
   },
 
 	render: function() {
@@ -27,8 +22,9 @@ var StepView = Backbone.View.extend({
 
   initSlider: function() {
     var self = this;
+
     this.$('.slider').noUiSlider({
-      start: [12],
+      start: [self.model.get('delta')],
       direction: "rtl",
       step: 1,
       connect: false,
@@ -41,7 +37,7 @@ var StepView = Backbone.View.extend({
         decimals: 0
       })
     }).on('slide', function(e){
-      self.setPitch($(this).val()-12);
+      self.setPitch($(this).val());
     });
   },
 

@@ -8,3 +8,5 @@ In theory, you should be able to just clone the repo and run:
 - ```npm install```
 - ```grunt```
 
+### See a live demo at
+[Heissmusik.com](http://step-sequencer.heissmusik.com/)

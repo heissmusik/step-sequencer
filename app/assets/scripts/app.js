@@ -119,7 +119,7 @@ var Clock = Backbone.Model.extend({
 	},
 
   initialize: function() {
-    console.log(this.model);
+    // console.log(this.model);
   },
 
 	render: function() {
@@ -166,7 +166,6 @@ var Clock = Backbone.Model.extend({
   },
 
   toggleStep: function() {
-    console.log('toggleStep');
     var $triggerEl = $('.trigger_'+this.model.id);
     $triggerEl.toggleClass('step-active');
 
@@ -193,8 +192,6 @@ var Clock = Backbone.Model.extend({
 	initialize: function() {
 		var self= this;
     this.setNoteMapper();
-    console.log (this.noteMapper[12]);
-
 		this.stepCount = 1;
     this.clock = new Clock();
     this.listenTo(this.clock, 'step', this.stepWasTriggered);
@@ -261,7 +258,6 @@ var Clock = Backbone.Model.extend({
 
     var currentStepView = this._stepViews[this.stepCount-1];
     if (currentStepView.isActive() === true) {
-      console.log ( 'DELTA', currentStepView.model.get('delta') );
 
       // TODO: would be cool if by frequency...
       // var HALF_STEP_DELTA = Math.pow(2, 1/12);

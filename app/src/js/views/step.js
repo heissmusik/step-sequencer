@@ -7,7 +7,7 @@ var StepView = Backbone.View.extend({
 	},
 
   initialize: function() {
-    console.log(this.model);
+    // console.log(this.model);
   },
 
 	render: function() {
@@ -54,7 +54,6 @@ var StepView = Backbone.View.extend({
   },
 
   toggleStep: function() {
-    console.log('toggleStep');
     var $triggerEl = $('.trigger_'+this.model.id);
     $triggerEl.toggleClass('step-active');
 

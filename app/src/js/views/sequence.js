@@ -10,8 +10,6 @@ var SequenceView = Backbone.View.extend({
 	initialize: function() {
 		var self= this;
     this.setNoteMapper();
-    console.log (this.noteMapper[12]);
-
 		this.stepCount = 1;
     this.clock = new Clock();
     this.listenTo(this.clock, 'step', this.stepWasTriggered);
@@ -78,7 +76,6 @@ var SequenceView = Backbone.View.extend({
 
     var currentStepView = this._stepViews[this.stepCount-1];
     if (currentStepView.isActive() === true) {
-      console.log ( 'DELTA', currentStepView.model.get('delta') );
 
       // TODO: would be cool if by frequency...
       // var HALF_STEP_DELTA = Math.pow(2, 1/12);

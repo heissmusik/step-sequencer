@@ -4,6 +4,7 @@ This application is an analog step sequencer built on the [Web Audio API](https:
 
 ## Setup
 
-In theory, you should be able to just clone the repo and run 
-```npm install```
+In theory, you should be able to just clone the repo and run:
+- ```npm install```
+- ```grunt```
 

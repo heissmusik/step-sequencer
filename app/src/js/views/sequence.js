@@ -58,14 +58,16 @@ var SequenceView = Backbone.View.extend({
     this.triggerStep();
   },
 
-  start: function() {
+  start: function(e) {
   	console.log('SequenceView::start()');
     this.clock.start();
+    $(e.currentTarget).addClass('started');
   },
 
   stop: function() {
   	console.log('SequenceView::stop()');
     this.clock.stop();
+    this.$('.play').removeClass('started');
   },
 
   triggerStep: function() {

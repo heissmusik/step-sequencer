@@ -56,6 +56,8 @@ var Clock = Backbone.Model.extend({
   },
 
   createAndTriggerOscillator: function (freq, volume) {
+    // console.log('createAndTriggerOscillator', freq, volume);
+
     var vco = this.context.createOscillator();
     vco.frequency.value = freq;
     vco.type = "square";
@@ -63,7 +65,7 @@ var Clock = Backbone.Model.extend({
 
     var vca = this.context.createGain();
     // var volume = Math.random();
-    var volume = .8;
+    // var volume = .1;
     vca.gain.value = volume;
     vco.connect(vca);
     vca.connect(this.context.destination);
@@ -266,7 +268,7 @@ var Clock = Backbone.Model.extend({
       var currentNote = this.noteMapper[pitchDelta];
       console.log (currentNote.freq );
 
-      this.model.createAndTriggerOscillator(currentNote.freq, .2);
+      this.model.createAndTriggerOscillator(currentNote.freq, .1);
     }
     this.flashLed();
     this.stepCount++;

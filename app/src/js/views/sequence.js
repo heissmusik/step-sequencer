@@ -84,7 +84,7 @@ var SequenceView = Backbone.View.extend({
       var currentNote = this.noteMapper[pitchDelta];
       console.log (currentNote.freq );
 
-      this.model.createAndTriggerOscillator(currentNote.freq, .2);
+      this.model.createAndTriggerOscillator(currentNote.freq, .1);
     }
     this.flashLed();
     this.stepCount++;

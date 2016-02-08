@@ -26,8 +26,9 @@ module.exports = function(grunt) {
     },
 
     watch: {
-    	// why bother to refresh your page?
-    	// https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en
+    	/* use this to make watch reload 
+    	 * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en
+       */
       html: { files: 'app/index.html' },
       less: { 
         files: 'app/src/less/*',
@@ -39,10 +40,9 @@ module.exports = function(grunt) {
       },
       options: {
         livereload: true
-      },
+      }
     },
-
-    // TODO: use require.js already
+    
     concat: {
       options: {
         separator: ';'
@@ -57,6 +57,7 @@ module.exports = function(grunt) {
         dest: 'app/assets/scripts/lib.js'
       },
       app: {
+        // TODO: use require.js already
         src: [
           'app/src/js/models/clock.js',
           'app/src/js/models/sequence.js',
@@ -110,7 +111,6 @@ module.exports = function(grunt) {
   grunt.registerTask('vendors', [ 'concat:lib'] );
 
   grunt.event.on('watch', function() {
-    console.log('watch fire');
-  //   grunt.task.run('less');
+    console.log('watch fired');
   });
 };

@@ -4,5 +4,7 @@ This application is an analog step sequencer built on the [Web Audio API](https:
 
 ## Setup
 
+- ```git clone https://github.com/heissmusik/step-sequencer.git```
+- ```cd step-sequencer/```
 - ```npm install```
 - ```grunt```
